@@ -1,13 +1,13 @@
 import { useContext } from 'react';
 import { CartContext } from '../store/shopping-cart-context.jsx';
 
-export default function Product({
+const Product = ({
   id,
   image,
   title,
   price,
   description,
-}) {
+}) => {
   const { addItemsToCart } = useContext(CartContext);
 
   return (
@@ -26,3 +26,5 @@ export default function Product({
     </article>
   );
 }
+
+export default Product;
