@@ -1,4 +1,3 @@
-import { fetchUserPlaces } from '../http.js';
 import { useEffect, useState } from 'react';
 
 export function useFetch({ fetchFn, initialValue }) {
@@ -25,6 +24,7 @@ export function useFetch({ fetchFn, initialValue }) {
   return {
     isFetching,
     fetchedData,
+    setFetchedData,
     error
   }
 }
