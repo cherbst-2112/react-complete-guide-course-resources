@@ -1,22 +1,40 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export default function Login() {
-  const email = useRef();
-  const password = useRef();
+  const [enteredValues, setEnteredValues] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [didEdit, setDidEdit] = useState({
+    email: false,
+    password: false
+  });
+
+  const emailIsInvalid =  didEdit.email && !enteredValues.email.includes('@');
 
   function handleSubmit(event) {
     event.preventDefault();
 
-    const enteredEmail = email.current.value;
-    const enteredPassword = password.current.value;
-
-    conole.log(enteredEmail, enteredPassword)
+    console.log(enteredValues);
   }
 
   function handleInputChange(identifier, event) {
     setEnteredValues(prevValues => ({
       ...prevValues,
       [identifier]: event.target.value
+    }))
+
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier]: false
+    }))
+  }
+
+  function handleInputBlur(identifier) {
+    setDidEdit(prevEdit => ({
+      ...prevEdit,
+      [identifier]: true
     }))
   }
 
@@ -27,12 +45,14 @@ export default function Login() {
       <div className="control-row">
         <div className="control no-margin">
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" name="email" ref={email} />
+          <input id="email" type="email" name="email" onBlur={() => handleInputBlur('email')} onChange={(event) => handleInputChange('email', event)}
+                 value={enteredValues.email}/>
+          <div className="control-error">{emailIsInvalid && <p>email error</p>}</div>
         </div>
 
         <div className="control no-margin">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password" ref={password} />
+          <input id="password" type="password" name="password" onChange={(event) => handleInputChange('password', event)} value={enteredValues.password} />
         </div>
       </div>
 
