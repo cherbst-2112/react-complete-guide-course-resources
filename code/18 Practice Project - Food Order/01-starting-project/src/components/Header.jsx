@@ -1,4 +1,5 @@
 import logoImg from '../assets/logo.jpg';
+import Button from './Button.jsx';
 
 export default function Header() {
   return <header id='main-header'>
@@ -7,7 +8,9 @@ export default function Header() {
       <h1>Testing</h1>
     </div>
     <nav>
-      <button>Cart (-1)</button>
+      <Button textOnly>
+        Cart (-1)
+      </Button>
     </nav>
   </header>
 }
