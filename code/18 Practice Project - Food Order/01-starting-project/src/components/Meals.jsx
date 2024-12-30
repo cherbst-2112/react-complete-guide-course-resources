@@ -9,8 +9,6 @@ export default function Meals() {
     return <p className='center'>Fetching...</p>
   }
 
-  console.log(error);
-
   if (error) {
     return <Error title='failed' message={error} />
   }
