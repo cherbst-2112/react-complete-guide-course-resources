@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { uiActions } from './ui-slice';
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -38,6 +39,48 @@ const cartSlice = createSlice({
     }
   }
 });
+
+export const sendCartData = (cart) => {
+  return async (dispatch) => {
+    dispatch(
+      uiActions.showNotification({
+        status: 'pending',
+        title: 'sending...',
+        message: 'sending cart data'
+      })
+    );
+
+    const sendRequest = async () => {
+      const response = await fetch('https://verbose-disco-default-rtdb.firebaseio.com/cart.json', {
+        method: 'PUT', body: JSON.stringify(cart)
+      });
+
+      if (!response.ok) {
+        throw new Error('sending cart');
+      }
+    }
+
+    try {
+      await sendRequest();
+
+      dispatch(
+        uiActions.showNotification({
+          status: 'success',
+          title: 'sent',
+          message: 'sent cart data'
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNotification({
+          status: 'error',
+          title: 'error!',
+          message: 'sending cart data failed'
+        })
+      );
+    }
+  }
+}
 
 export const cartActions = cartSlice.actions;
 
