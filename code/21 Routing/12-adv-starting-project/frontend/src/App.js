@@ -6,6 +6,8 @@
 //    - EventDetailPage
 //    - NewEventPage
 //    - EditEventPage
+
+// TODO
 // 2. Add routing & route definitions for these five pages
 //    - / => HomePage
 //    - /events => EventsPage
@@ -20,8 +22,16 @@
 // 7. Output the ID of the selected event on the EventDetailPage
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
 
+import Homepage from './components/Homepage';
+import EventsPage from './components/EventsPage';
+
 function App() {
-  return <div></div>;
+  return <div>
+    <Homepage>
+      <EventsPage>
+      </EventsPage>
+    </Homepage>
+  </div>;
 }
 
 export default App;
